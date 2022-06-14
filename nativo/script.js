@@ -9,7 +9,7 @@ async function carregarDados(){
         let resultado = await fetch(url)
     
         const dados = await resultado.json()
-
+        
         for(elementos of dados.results){
             //console.log(` Olá,sou ${elementos.name} nasci no ano  ${elementos.birth_year}`)
             //Criando elementos html dinamicamente
@@ -53,7 +53,31 @@ async function filtrarDados(idPersonagem){
     try {
         let resultado = await fetch (url)
         const dados = await resultado.json()
-        console.log(dados)
+        console.log(resultado) 
+        
+        //criando elementos html
+         const itemTabela = document.createElement("tr")
+         const tdNome = document.createElement("td")
+         const tdPeso = document.createElement("td")
+         const tdCorOlhos = document.createElement("td")
+         
+         //Criando os conteúdo das colunas
+         tdNome.textContent = dados.name
+         tdPeso.textContent = dados.mass
+         tdCorOlhos.textContent = dados.eye_color 
+         
+         //While significa o enquanto
+         while(resultado.status != 200){
+            btnFiltrar.setAttribute("disabled", "disabled")
+            btnFiltrar.textContent = "Carregando..."
+         }
+         btnFiltrar.removeAttribute("disabled")
+         btnFiltrar.textContent = "Filtrar"
+         //Adicionando os elementos em suas respectivas tags Mãe ou Pai
+         itemTabela.appendChild(tdNome)
+         itemTabela.appendChild(tdPeso)
+         itemTabela.appendChild(tdCorOlhos)
+         tabela.appendChild(itemTabela)
 
     } catch (error) {
         console.log("O erro é o seguinte:",erro)
@@ -61,6 +85,7 @@ async function filtrarDados(idPersonagem){
 }
 
 //carregarDados()
+
 btnFiltrar.addEventListener('click', (evento)=>{
     evento.preventDefault()
     if(campoBusca.value != "" && campoBusca.value >=1 && campoBusca.value <=82){
