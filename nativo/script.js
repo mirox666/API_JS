@@ -36,9 +36,13 @@ async function carregarDados(){
             itemTabela.appendChild(tdPeso)
             itemTabela.appendChild(tdCorOlhos)
             tabela.appendChild(itemTabela)
+            
         }
 
         console.log(dados.results)
+        
+        //Criando elementos Html
+
     } catch (error) {
         console.log("O seguinte erro aconteceu", error)
     }
@@ -77,7 +81,14 @@ async function filtrarDados(idPersonagem){
          itemTabela.appendChild(tdNome)
          itemTabela.appendChild(tdPeso)
          itemTabela.appendChild(tdCorOlhos)
-         tabela.appendChild(itemTabela)
+         
+         // Se houver alguma linha sera removida
+          if(tabela.children.length > 0){
+                tabela.removeChild(tabela.firstElementChild)
+        }
+         
+        tabela.appendChild(itemTabela)
+         console.log(tabela.children)
 
     } catch (error) {
         console.log("O erro é o seguinte:",erro)
